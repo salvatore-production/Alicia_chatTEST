@@ -6,6 +6,9 @@
 venv/
 env/
 
+# Ignorer BFG Repo-Cleaner JAR
+bfg-*.jar
+
 # Autres exclusions communes
 __pycache__/
 *.py[cod]
