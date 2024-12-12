@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot Alicia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Chatbot Alicia</h2>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Les messages s'afficheront ici -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Écris un message..." autocomplete="off">
+            <button id="send-button">Envoyer</button>
+        </div>
+    </div>
+    <!-- Ajoutez la balise <script> juste avant la fermeture de </body> -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
