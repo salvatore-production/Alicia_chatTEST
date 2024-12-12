@@ -1,0 +1,13 @@
+# Fichiers d'environnement
+.env
+.env.txt
+
+# Répertoires d'environnement virtuel
+venv/
+env/
+
+# Autres exclusions communes
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
