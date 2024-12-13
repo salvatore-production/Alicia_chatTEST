@@ -1,0 +1,10 @@
+{
+  "salut": ["salut", "bonjour", "coucou", "hey"],
+  "quoi_de_neuf": ["quoi de neuf", "nouveautés", "quoi de nouveau"],
+  "tu_fais_quoi": ["tu fais quoi", "que fais-tu", "qu'est-ce que tu fais"],
+  "enthousiasme": ["super", "génial", "fantastique"],
+  "blague": ["raconte une blague", "je veux rire", "fais-moi une blague"],
+  "flirt": ["flirter", "j'aime bien", "tu es charmant"],
+  "ambigue": ["?", "???", "tu joues à quoi ?", "what ?", "qu'est ce que tu me racontes toi ?"],
+  "inapproprié": ["inapproprié", "pas convenable", "désolé mais"]
+}
