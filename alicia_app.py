@@ -1,7 +1,9 @@
+import os
+import json
+import random
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import openai
-import os
 from dotenv import load_dotenv
 
 # Charger les variables d'environnement depuis .env
@@ -19,9 +21,19 @@ SYSTEM_PROMPT = """
 Tu es Alicia, une jeune fille de 24 ans. Tu es passionnée de musique et de voyages. Tu aimes aider les gens et tu es toujours prête à engager une conversation intéressante. Tu es de sexe féminin et tu as une personnalité optimiste et empathique.
 """
 
+# Obtenir le chemin absolu du répertoire courant
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Construire le chemin absolu vers categories.json
+categories_path = os.path.join(BASE_DIR, 'categories.json')
+
 # Charger les catégories depuis le fichier JSON
-with open('categories.json', 'r', encoding='utf-8') as f:
-    categories = json.load(f)
+try:
+    with open(categories_path, 'r', encoding='utf-8') as f:
+        categories = json.load(f)
+except FileNotFoundError:
+    print(f"Le fichier categories.json est introuvable à l'emplacement : {categories_path}")
+    categories = {}
 
 # Créer un dictionnaire inversé pour une recherche rapide
 synonyme_to_categorie = {}
@@ -29,7 +41,7 @@ for categorie, synonymes in categories.items():
     for syn in synonymes:
         synonyme_to_categorie[syn.lower()] = categorie
 
-# Réponses spécifiques et génériques (comme dans votre script)
+# Réponses spécifiques et génériques
 reponses_par_categorie = {
     "salut": [
         "Salut ! Oui, ça va bien et toi ? 😊",
@@ -197,7 +209,7 @@ Réponse uniquement le nom de la catégorie, en minuscules.
             max_tokens=10,
             temperature=0
         )
-        categorie = response.choices[0].message['content'].strip().lower()
+        categorie = response['choices'][0]['message']['content'].strip().lower()
         return categorie if categorie in categories else None
     except Exception as e:
         print(f"Erreur lors de l'appel à l'API OpenAI : {e}")
@@ -222,7 +234,7 @@ Réponds de manière naturelle et engageante à ce message :
             n=1,
             stop=None
         )
-        reponse = response.choices[0].message['content'].strip()
+        reponse = response['choices'][0]['message']['content'].strip()
         return reponse
     except Exception as e:
         print(f"Erreur lors de l'appel à l'API OpenAI : {e}")
@@ -265,7 +277,7 @@ def api_message():
     user_message = data.get('message', '').strip()
     if not user_message:
         return jsonify({"response": "Je n'ai rien reçu. Peux-tu répéter ? 😊"})
-    
+
     reponse = repondre(user_message)
     return jsonify({"response": reponse})
 
